@@ -9,4 +9,4 @@ Instal Node.js, npm and git
 3. Run "npm start"
 
 # Screenshot
-[screenshot.pdf](https://github.com/bhuvana084/simple-angular2-datepicker/screenshot.pdf)
+[Click here](https://github.com/bhuvana084/simple-angular2-datepicker/blob/master/screenshot.pdf)
