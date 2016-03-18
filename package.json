@@ -19,7 +19,7 @@
     "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
     "typings" : "typings"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "angular2": "2.0.0-beta.6",
     "systemjs": "0.19.20",
@@ -34,5 +34,12 @@
     "lite-server": "^2.0.1",
     "typescript": "^1.7.5",
     "typings":"^0.6.8"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/bhuvana084/simple-angular2-datepicker.git"
+  },
+  "author": {
+      "name" : "Bhuvaneswari Lakshminarayanan"
   }
 }
