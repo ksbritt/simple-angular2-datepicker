@@ -1,6 +1,6 @@
 {
   "name": "angular2-simple-datepicker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple Angular2 Datepicker",
   "keywords": [
       "datepicker",
@@ -41,6 +41,5 @@
   },
   "author": {
       "name" : "Bhuvaneswari Lakshminarayanan"
-  },
-  "readme": "https://github.com/bhuvana084/simple-angular2-datepicker/blob/master/README.md"
+  }
 }
