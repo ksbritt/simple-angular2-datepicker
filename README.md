@@ -1,6 +1,6 @@
 # Angular 2 Datepicker
 A simple date picker developed as a Angular2 component.
-CSS styling referred from the awesome style created by John Sardine in http://johnsardine.com/freebies/dl-html-css/pretty-little-calendar-css3/
+CSS styling referred from the awesome style created for a pretty little calendar by John Sardine in http://johnsardine.com/freebies/dl-html-css/pretty-little-calendar-css3/
 # Pre-requisites
 Instal Node.js, npm and git
 # Steps
