@@ -1,7 +1,9 @@
 # Angular 2 Datepicker
 A simple date picker developed as a Angular2 component.
 CSS styling referred from the awesome style created for a pretty little calendar by John Sardine in http://johnsardine.com/freebies/dl-html-css/pretty-little-calendar-css3/
-Update - Added functionality to specify dates to disable (disable dates before and after the specified dates). 
+Includes the following - 
+1. Min and Max date which specify the date range for the date picker.
+2. Days of the week to disable (Eg - To disable Sun & Sat specify 0 & 6 in the array input).
 # Pre-requisites
 Instal Node.js, npm and git
 # Steps
