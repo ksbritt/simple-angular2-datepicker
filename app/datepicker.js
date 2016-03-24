@@ -25,7 +25,6 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     this.selectedDate = new core_1.EventEmitter();
                 }
                 DatePickerComponent.prototype.ngOnInit = function () {
-                    //console.log('inputDate - '+this.inputDate);
                     this.daysofWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
                     this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     this.currMonth = this.months[new Date().getMonth()].toString();
@@ -88,10 +87,17 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     var tempLastDate = this.decideDate(month, year);
                     var temp = [];
                     for (var i = 1; i <= tempLastDate; i++) {
+                        var currentDate = moment().year(year).month(month).date(i);
+                        var pastDate = moment(this.disableBefore);
+                        var futureDate = moment(this.disableAfter).add(1, 'd');
+                        var dbld = false;
+                        if (currentDate.isBefore(this.disableBefore, true) || currentDate.isAfter(futureDate, true)) {
+                            dbld = true;
+                        }
                         if (i != date)
-                            temp.push({ 'month': this.months.indexOf(month) + 1, 'date': i, 'disabled': false, 'selected': false });
+                            temp.push({ 'month': this.months.indexOf(month) + 1, 'date': i, 'disabled': dbld, 'selected': false });
                         else
-                            temp.push({ 'month': this.months.indexOf(month) + 1, 'date': i, 'disabled': false, 'selected': true });
+                            temp.push({ 'month': this.months.indexOf(month) + 1, 'date': i, 'disabled': dbld, 'selected': true });
                     }
                     this.completeDates = temp;
                     //Determine Date of First of the Month
@@ -174,6 +180,14 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                         }
                     }
                 };
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], DatePickerComponent.prototype, "disableBefore", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], DatePickerComponent.prototype, "disableAfter", void 0);
                 DatePickerComponent = __decorate([
                     core_1.Component({
                         selector: 'date-picker',

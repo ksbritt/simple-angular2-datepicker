@@ -3,13 +3,13 @@
   "version": "1.0.3",
   "description": "Simple Angular2 Datepicker",
   "keywords": [
-      "datepicker",
-      "angular2",
-      "angular 2",
-      "basic datepicker",
-      "simple datepicker",
-      "calendar widget",
-      "angular2 components"
+    "datepicker",
+    "angular2",
+    "angular 2",
+    "basic datepicker",
+    "simple datepicker",
+    "calendar widget",
+    "angular2 components"
   ],
   "scripts": {
     "postinstall": "npm run typings install",
@@ -17,29 +17,30 @@
     "tsc:w": "tsc -w",
     "lite": "lite-server",
     "start": "concurrent \"npm run tsc:w\" \"npm run lite\" ",
-    "typings" : "typings"
+    "typings": "typings"
   },
   "license": "MIT",
   "dependencies": {
     "angular2": "2.0.0-beta.6",
-    "systemjs": "0.19.20",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",
+    "moment": "^2.12.0",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.0",
+    "systemjs": "0.19.20",
     "zone.js": "0.5.14"
   },
   "devDependencies": {
     "concurrently": "^1.0.0",
     "lite-server": "^2.0.1",
     "typescript": "^1.7.5",
-    "typings":"^0.6.8"
+    "typings": "^0.6.8"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/bhuvana084/simple-angular2-datepicker.git"
+    "type": "git",
+    "url": "https://github.com/bhuvana084/simple-angular2-datepicker.git"
   },
   "author": {
-      "name" : "Bhuvaneswari Lakshminarayanan"
+    "name": "Bhuvaneswari Lakshminarayanan"
   }
 }

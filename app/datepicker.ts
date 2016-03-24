@@ -1,4 +1,5 @@
 import {Component,OnInit,Input,EventEmitter} from 'angular2/core';
+declare var moment:any;
 
 @Component({
     selector: 'date-picker',
@@ -9,7 +10,8 @@ import {Component,OnInit,Input,EventEmitter} from 'angular2/core';
 
 export class DatePickerComponent implements OnInit{
 
-	//@Input('inputDate') inputDate:string;
+	@Input() disableBefore:string;
+    @Input() disableAfter:string;
 	
 	daysofWeek:Array<String>;
 	currMonth:string;
@@ -27,7 +29,6 @@ export class DatePickerComponent implements OnInit{
 		
 	
 	ngOnInit() {
-		//console.log('inputDate - '+this.inputDate);
 		this.daysofWeek = ['Su','Mo','Tu','We','Th','Fr','Sa'];
 		this.months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 		this.currMonth = this.months[new Date().getMonth()].toString();
@@ -95,10 +96,17 @@ export class DatePickerComponent implements OnInit{
 		let tempLastDate = this.decideDate(month,year);
 		let temp = [];
 		for (let i=1;i<=tempLastDate;i++){
+            let currentDate = moment().year(year).month(month).date(i);
+            let pastDate = moment(this.disableBefore);
+            let futureDate = moment(this.disableAfter).add(1, 'd');
+            let dbld = false;
+            if (currentDate.isBefore(this.disableBefore, true) || currentDate.isAfter(futureDate, true)) {
+                dbld = true;
+            }
 			if (i!=date)
-				temp.push({'month':this.months.indexOf(month)+1,'date':i,'disabled':false,'selected':false});	
+				temp.push({'month':this.months.indexOf(month)+1,'date':i,'disabled':dbld,'selected':false});	
 			else
-				temp.push({'month':this.months.indexOf(month)+1,'date':i,'disabled':false,'selected':true});	
+				temp.push({'month':this.months.indexOf(month)+1,'date':i,'disabled':dbld,'selected':true});	
 		}
 		this.completeDates = temp;	
 

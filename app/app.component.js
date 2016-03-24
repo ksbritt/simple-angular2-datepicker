@@ -24,6 +24,8 @@ System.register(['angular2/core', './datepicker'], function(exports_1, context_1
             AppComponent = (function () {
                 function AppComponent() {
                     this.selDate = 'MM/DD/YYYY';
+                    this.disableBefore = '03/15/2016';
+                    this.disableAfter = '04/20/2016';
                 }
                 AppComponent.prototype.setDate = function (date) {
                     this.selDate = date;
@@ -31,7 +33,7 @@ System.register(['angular2/core', './datepicker'], function(exports_1, context_1
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n    \t<h3>Angular 2 DatePicker</h3>\n    \t<input #dateText type='text' value={{selDate}}/>\n    \t<date-picker (selectedDate)='setDate($event)'></date-picker>\n    ",
+                        template: "\n    \t<h3>Angular 2 DatePicker</h3>\n    \t<input #dateText type='text' value={{selDate}}/>\n    \t<date-picker \n            [disableBefore]=\"disableBefore\" \n            [disableAfter]=\"disableAfter\"\n            (selectedDate)='setDate($event)'></date-picker>\n    ",
                         directives: [datepicker_1.DatePickerComponent]
                     }), 
                     __metadata('design:paramtypes', [])
