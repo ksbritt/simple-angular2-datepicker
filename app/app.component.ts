@@ -9,6 +9,9 @@ import {DatePickerComponent} from './datepicker'
     	<date-picker 
             [disableBefore]="disableBefore" 
             [disableAfter]="disableAfter"
+            [disableDays]="disableDays"
+            [toContainPrevMonth]="toContainPrevMonth"
+            [toContainNextMonth]="toContainNextMonth"
             (selectedDate)='setDate($event)'></date-picker>
     `,
 	directives: [DatePickerComponent]
@@ -16,8 +19,11 @@ import {DatePickerComponent} from './datepicker'
 export class AppComponent {
 
 	selDate:string='MM/DD/YYYY';
-    disableBefore:string='03/15/2016';
-    disableAfter:string='04/20/2016';
+    disableBefore:string='01/01/2016';
+    disableAfter:string='12/31/2016';
+    disableDays:Array<number>=[0,6];    //For Sunday and Saturday
+    toContainPrevMonth:boolean = false;
+    toContainNextMonth:boolean = false;
 	
 	setDate(date){
 		this.selDate = date;

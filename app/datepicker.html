@@ -12,7 +12,10 @@
     </thead>
     <tbody>
         <tr *ngFor="#date of dates">
-            <td *ngFor="#d of date" (click)='setDate(d)' [class.disabled]='d.disabled' [class.selDate]='d.selected'>{{d.date}}</td>
+            <td *ngFor="#d of date" (click)='setDate(d)' 
+                [class.disabled]='d.disabled' 
+                [class.selDate]='d.selected'
+                [class.empty]='d.empty'>{{d.date}}</td>
         </tr>
     </tbody>
 </table>

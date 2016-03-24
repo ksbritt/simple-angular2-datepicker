@@ -25,6 +25,8 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     this.selectedDate = new core_1.EventEmitter();
                 }
                 DatePickerComponent.prototype.ngOnInit = function () {
+                    console.log(this.toContainNextMonth);
+                    console.log(this.toContainPrevMonth);
                     this.daysofWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
                     this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     this.currMonth = this.months[new Date().getMonth()].toString();
@@ -91,13 +93,19 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                         var pastDate = moment(this.disableBefore);
                         var futureDate = moment(this.disableAfter).add(1, 'd');
                         var dbld = false;
+                        //To disable Days - Index based 0-6
+                        for (var dayIndex = 0; dayIndex < this.disableDays.length; dayIndex++) {
+                            if (currentDate.day() == this.disableDays[dayIndex]) {
+                                dbld = true;
+                            }
+                        }
                         if (currentDate.isBefore(this.disableBefore, true) || currentDate.isAfter(futureDate, true)) {
                             dbld = true;
                         }
                         if (i != date)
-                            temp.push({ 'month': this.months.indexOf(month) + 1, 'date': i, 'disabled': dbld, 'selected': false });
+                            temp.push({ 'month': this.months.indexOf(month) + 1, 'date': i, 'disabled': dbld, 'selected': false, 'empty': false });
                         else
-                            temp.push({ 'month': this.months.indexOf(month) + 1, 'date': i, 'disabled': dbld, 'selected': true });
+                            temp.push({ 'month': this.months.indexOf(month) + 1, 'date': i, 'disabled': dbld, 'selected': true, 'empty': false });
                     }
                     this.completeDates = temp;
                     //Determine Date of First of the Month
@@ -111,7 +119,12 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                         var prevLast = this.decideDate(this.months[pMonth], year);
                         //Fix it to display last date last
                         for (var i = 0; i < firstDate.getDay(); i++) {
-                            spaceArray.push({ 'month': firstDate.getMonth() - 1, 'date': prevLast, 'disabled': true, 'selected': false });
+                            if (this.toContainPrevMonth) {
+                                spaceArray.push({ 'month': firstDate.getMonth() - 1, 'date': prevLast, 'disabled': true, 'selected': false, 'empty': false });
+                            }
+                            else {
+                                spaceArray.push({ 'month': '', 'date': '', 'disabled': false, 'selected': false, 'empty': true });
+                            }
                             prevLast--;
                         }
                     }
@@ -121,7 +134,12 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                         //Not Saturday
                         var nIndex = 1;
                         for (var i = 6; i > lastDate.getDay(); i--) {
-                            this.tempArray.push({ 'month': firstDate.getMonth() + 1, 'date': nIndex, disabled: true, 'selected': false });
+                            if (this.toContainNextMonth) {
+                                this.tempArray.push({ 'month': firstDate.getMonth() + 1, 'date': nIndex, disabled: true, 'selected': false, 'empty': false });
+                            }
+                            else {
+                                this.tempArray.push({ 'month': '', 'date': '', disabled: false, 'selected': false, 'empty': true });
+                            }
                             nIndex++;
                         }
                     }
@@ -188,6 +206,18 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     core_1.Input(), 
                     __metadata('design:type', String)
                 ], DatePickerComponent.prototype, "disableAfter", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Array)
+                ], DatePickerComponent.prototype, "disableDays", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Boolean)
+                ], DatePickerComponent.prototype, "toContainPrevMonth", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Boolean)
+                ], DatePickerComponent.prototype, "toContainNextMonth", void 0);
                 DatePickerComponent = __decorate([
                     core_1.Component({
                         selector: 'date-picker',

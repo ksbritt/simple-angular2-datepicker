@@ -12,6 +12,9 @@ export class DatePickerComponent implements OnInit{
 
 	@Input() disableBefore:string;
     @Input() disableAfter:string;
+    @Input() disableDays:Array<number>;
+    @Input() toContainPrevMonth:boolean;
+    @Input() toContainNextMonth:boolean;
 	
 	daysofWeek:Array<String>;
 	currMonth:string;
@@ -29,6 +32,8 @@ export class DatePickerComponent implements OnInit{
 		
 	
 	ngOnInit() {
+        console.log(this.toContainNextMonth);
+        console.log(this.toContainPrevMonth);
 		this.daysofWeek = ['Su','Mo','Tu','We','Th','Fr','Sa'];
 		this.months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 		this.currMonth = this.months[new Date().getMonth()].toString();
@@ -100,13 +105,19 @@ export class DatePickerComponent implements OnInit{
             let pastDate = moment(this.disableBefore);
             let futureDate = moment(this.disableAfter).add(1, 'd');
             let dbld = false;
+            //To disable Days - Index based 0-6
+            for (let dayIndex=0; dayIndex<this.disableDays.length; dayIndex++){
+                if (currentDate.day()==this.disableDays[dayIndex]) {
+                    dbld = true;
+                }
+            }
             if (currentDate.isBefore(this.disableBefore, true) || currentDate.isAfter(futureDate, true)) {
                 dbld = true;
             }
 			if (i!=date)
-				temp.push({'month':this.months.indexOf(month)+1,'date':i,'disabled':dbld,'selected':false});	
+				temp.push({'month':this.months.indexOf(month)+1,'date':i,'disabled':dbld,'selected':false,'empty':false});	
 			else
-				temp.push({'month':this.months.indexOf(month)+1,'date':i,'disabled':dbld,'selected':true});	
+				temp.push({'month':this.months.indexOf(month)+1,'date':i,'disabled':dbld,'selected':true,'empty':false});	
 		}
 		this.completeDates = temp;	
 
@@ -123,7 +134,12 @@ export class DatePickerComponent implements OnInit{
 			//Fix it to display last date last
 			for (let i=0;i<firstDate.getDay();i++)
 			{
-				spaceArray.push({'month':firstDate.getMonth()-1,'date':prevLast,'disabled':true,'selected':false});
+                if (this.toContainPrevMonth) {
+                    spaceArray.push({'month':firstDate.getMonth()-1,'date':prevLast,'disabled':true,'selected':false,'empty':false});
+                }
+                else {
+                    spaceArray.push({'month':'','date':'','disabled':false,'selected':false,'empty':true});
+				}
 				prevLast--;
 			}
 		}
@@ -133,7 +149,12 @@ export class DatePickerComponent implements OnInit{
 			//Not Saturday
 			let nIndex = 1;
 			for (let i=6;i>lastDate.getDay();i--){
-				this.tempArray.push({'month':firstDate.getMonth()+1,'date':nIndex,disabled:true,'selected':false});
+                if (this.toContainNextMonth) {
+                    this.tempArray.push({'month':firstDate.getMonth()+1,'date':nIndex,disabled:true,'selected':false,'empty':false});
+                }
+                else {
+                    this.tempArray.push({'month':'','date':'',disabled:false,'selected':false,'empty':true});
+				}
 				nIndex++;
 			}
 		}
