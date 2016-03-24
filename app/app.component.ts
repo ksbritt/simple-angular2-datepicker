@@ -20,7 +20,7 @@ export class AppComponent {
 
 	selDate:string='MM/DD/YYYY';
     disableBefore:string='01/01/2016';
-    disableAfter:string='12/31/2016';
+    disableAfter:string='12/31/2017';
     disableDays:Array<number>=[0,6];    //For Sunday and Saturday
     toContainPrevMonth:boolean = false;
     toContainNextMonth:boolean = false;

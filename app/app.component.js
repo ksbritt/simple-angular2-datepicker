@@ -25,7 +25,7 @@ System.register(['angular2/core', './datepicker'], function(exports_1, context_1
                 function AppComponent() {
                     this.selDate = 'MM/DD/YYYY';
                     this.disableBefore = '01/01/2016';
-                    this.disableAfter = '12/31/2016';
+                    this.disableAfter = '12/31/2017';
                     this.disableDays = [0, 6]; //For Sunday and Saturday
                     this.toContainPrevMonth = false;
                     this.toContainNextMonth = false;

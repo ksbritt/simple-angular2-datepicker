@@ -186,14 +186,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                         if (sDate.date != '') {
                             //Set the new date array with active date
                             this.dates = this.setDateArray(this.currMonth, this.currYear, sDate.date);
-                            var tempDate = new Date(this.currMonth + '/' + sDate.date + '/' + this.currYear);
-                            var month = (tempDate.getMonth() + 1).toString();
-                            var date = (tempDate.getDate()).toString();
-                            if (tempDate.getMonth() < 10)
-                                month = '0' + month;
-                            if (tempDate.getDate() < 10)
-                                date = '0' + date;
-                            var selDate = month + '/' + date + '/' + tempDate.getFullYear();
+                            var selDate = moment().year(this.currYear).month(this.currMonth).date(sDate.date).format('MM/DD/YYYY', true);
                             this.selectedDate.next(selDate);
                         }
                     }

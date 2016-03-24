@@ -203,15 +203,7 @@ export class DatePickerComponent implements OnInit{
 			if (sDate.date!=''){
 				//Set the new date array with active date
 				this.dates = this.setDateArray(this.currMonth,this.currYear,sDate.date);
-
-				let tempDate = new Date(this.currMonth+'/'+sDate.date+'/'+this.currYear);
-				let month = (tempDate.getMonth()+1).toString();
-				let date = (tempDate.getDate()).toString();
-				if (tempDate.getMonth()<10)
-					month = '0'+month;
-				if (tempDate.getDate()<10)
-					date = '0'+date;	
-				let selDate = month+'/'+date+'/'+tempDate.getFullYear();
+                let selDate = moment().year(this.currYear).month(this.currMonth).date(sDate.date).format('MM/DD/YYYY',true);
 				this.selectedDate.next(selDate);
 			}
 		}
