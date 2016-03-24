@@ -29,14 +29,18 @@ System.register(['angular2/core', './datepicker'], function(exports_1, context_1
                     this.disableDays = [0, 6]; //For Sunday and Saturday
                     this.toContainPrevMonth = false;
                     this.toContainNextMonth = false;
+                    this.value = '';
                 }
+                AppComponent.prototype.setInputDate = function (event) {
+                    this.value = event.target.value;
+                };
                 AppComponent.prototype.setDate = function (date) {
                     this.selDate = date;
                 };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n    \t<h3>Angular 2 DatePicker</h3>\n    \t<input #dateText type='text' value={{selDate}}/>\n    \t<date-picker \n            [minDate]=\"minDate\" \n            [maxDate]=\"maxDate\"\n            [disableDays]=\"disableDays\"\n            [toContainPrevMonth]=\"toContainPrevMonth\"\n            [toContainNextMonth]=\"toContainNextMonth\"\n            (selectedDate)='setDate($event)'></date-picker>\n    ",
+                        template: "\n    \t<h3>Angular 2 DatePicker</h3>\n    \t<input #dateText type='text' value={{selDate}} (change)=\"setInputDate($event)\"/>\n    \t<date-picker \n            [value]=\"value\"\n            [minDate]=\"minDate\" \n            [maxDate]=\"maxDate\"\n            [disableDays]=\"disableDays\"\n            [toContainPrevMonth]=\"toContainPrevMonth\"\n            [toContainNextMonth]=\"toContainNextMonth\"\n            (selectedDate)='setDate($event)'></date-picker>\n    ",
                         directives: [datepicker_1.DatePickerComponent]
                     }), 
                     __metadata('design:paramtypes', [])

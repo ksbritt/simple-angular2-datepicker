@@ -1,4 +1,4 @@
-import {Component,OnInit,Input,EventEmitter} from 'angular2/core';
+import {Component,OnChanges,Input,EventEmitter} from 'angular2/core';
 declare var moment:any;
 
 @Component({
@@ -8,33 +8,32 @@ declare var moment:any;
 	outputs: ['selectedDate']
 })
 
-export class DatePickerComponent implements OnInit{
+export class DatePickerComponent implements OnChanges{
 
 	@Input() minDate:string;
     @Input() maxDate:string;
     @Input() disableDays:Array<number>;
     @Input() toContainPrevMonth:boolean;
     @Input() toContainNextMonth:boolean;
+    @Input() value:string='';
 	
-	daysofWeek:Array<String>;
-	currMonth:string;
-	currYear:string;
-	months:Array<String>;
-	dates:any=[];
-	completeDates:any;
-	tempArray:any;
-	prevMonth:string;
-	nextMonth:string;
-	prevYear:string;
-	nextYear:string;
-	showDp = 'none';
-	selectedDate = new EventEmitter();
+	private daysofWeek:Array<String>;
+	private currMonth:string;
+	private currYear:string;
+	private months:Array<String>;
+	private dates:any=[];
+	private completeDates:any;
+	private tempArray:any;
+	private prevMonth:string;
+	private nextMonth:string;
+	private prevYear:string;
+	private nextYear:string;
+	private showDp = 'none';
+	public selectedDate = new EventEmitter();
 		
 	
-	ngOnInit() {
-        console.log(this.toContainNextMonth);
-        console.log(this.toContainPrevMonth);
-		this.daysofWeek = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+	ngOnChanges() {
+        this.daysofWeek = ['Su','Mo','Tu','We','Th','Fr','Sa'];
 		this.months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 		this.currMonth = this.months[new Date().getMonth()].toString();
 		this.currYear = new Date().getFullYear().toString();
@@ -44,7 +43,16 @@ export class DatePickerComponent implements OnInit{
 		this.prevYear = (parseInt(this.currYear) - 1).toString();
 		this.nextYear = (parseInt(this.currYear) + 1).toString();
 		//Set Date Array
-		this.dates = this.setDateArray(this.currMonth,this.currYear,'');		
+        if (this.value!='') {
+            let givenDate = moment(this.value,"MM/DD/YYYY",true);
+            this.currMonth = this.months[givenDate.month()].toString();
+            this.currYear = givenDate.year();
+            this.dates = this.setDateArray(this.currMonth,this.currYear,givenDate.date());    
+        }
+        else {
+            this.dates = this.setDateArray(this.currMonth,this.currYear,'');
+        }
+				
 	}
 
 	openDatePicker() {

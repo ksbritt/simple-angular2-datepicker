@@ -20,13 +20,12 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         execute: function() {
             DatePickerComponent = (function () {
                 function DatePickerComponent() {
+                    this.value = '';
                     this.dates = [];
                     this.showDp = 'none';
                     this.selectedDate = new core_1.EventEmitter();
                 }
-                DatePickerComponent.prototype.ngOnInit = function () {
-                    console.log(this.toContainNextMonth);
-                    console.log(this.toContainPrevMonth);
+                DatePickerComponent.prototype.ngOnChanges = function () {
                     this.daysofWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
                     this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     this.currMonth = this.months[new Date().getMonth()].toString();
@@ -37,7 +36,15 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     this.prevYear = (parseInt(this.currYear) - 1).toString();
                     this.nextYear = (parseInt(this.currYear) + 1).toString();
                     //Set Date Array
-                    this.dates = this.setDateArray(this.currMonth, this.currYear, '');
+                    if (this.value != '') {
+                        var givenDate = moment(this.value, "MM/DD/YYYY", true);
+                        this.currMonth = this.months[givenDate.month()].toString();
+                        this.currYear = givenDate.year();
+                        this.dates = this.setDateArray(this.currMonth, this.currYear, givenDate.date());
+                    }
+                    else {
+                        this.dates = this.setDateArray(this.currMonth, this.currYear, '');
+                    }
                 };
                 DatePickerComponent.prototype.openDatePicker = function () {
                     if (this.showDp == 'none')
@@ -211,6 +218,10 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     core_1.Input(), 
                     __metadata('design:type', Boolean)
                 ], DatePickerComponent.prototype, "toContainNextMonth", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', String)
+                ], DatePickerComponent.prototype, "value", void 0);
                 DatePickerComponent = __decorate([
                     core_1.Component({
                         selector: 'date-picker',
