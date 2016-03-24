@@ -7,8 +7,8 @@ import {DatePickerComponent} from './datepicker'
     	<h3>Angular 2 DatePicker</h3>
     	<input #dateText type='text' value={{selDate}}/>
     	<date-picker 
-            [disableBefore]="disableBefore" 
-            [disableAfter]="disableAfter"
+            [minDate]="minDate" 
+            [maxDate]="maxDate"
             [disableDays]="disableDays"
             [toContainPrevMonth]="toContainPrevMonth"
             [toContainNextMonth]="toContainNextMonth"
@@ -19,8 +19,8 @@ import {DatePickerComponent} from './datepicker'
 export class AppComponent {
 
 	selDate:string='MM/DD/YYYY';
-    disableBefore:string='01/01/2016';
-    disableAfter:string='12/31/2017';
+    minDate:string='01/01/2016';
+    maxDate:string='12/31/2017';
     disableDays:Array<number>=[0,6];    //For Sunday and Saturday
     toContainPrevMonth:boolean = false;
     toContainNextMonth:boolean = false;

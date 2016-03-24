@@ -90,8 +90,8 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     var temp = [];
                     for (var i = 1; i <= tempLastDate; i++) {
                         var currentDate = moment().year(year).month(month).date(i);
-                        var pastDate = moment(this.disableBefore);
-                        var futureDate = moment(this.disableAfter).add(1, 'd');
+                        var pastDate = moment(this.minDate);
+                        var futureDate = moment(this.maxDate).add(1, 'd');
                         var dbld = false;
                         //To disable Days - Index based 0-6
                         for (var dayIndex = 0; dayIndex < this.disableDays.length; dayIndex++) {
@@ -99,7 +99,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                                 dbld = true;
                             }
                         }
-                        if (currentDate.isBefore(this.disableBefore, true) || currentDate.isAfter(futureDate, true)) {
+                        if (currentDate.isBefore(this.minDate, true) || currentDate.isAfter(futureDate, true)) {
                             dbld = true;
                         }
                         if (i != date)
@@ -194,11 +194,11 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], DatePickerComponent.prototype, "disableBefore", void 0);
+                ], DatePickerComponent.prototype, "minDate", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], DatePickerComponent.prototype, "disableAfter", void 0);
+                ], DatePickerComponent.prototype, "maxDate", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Array)

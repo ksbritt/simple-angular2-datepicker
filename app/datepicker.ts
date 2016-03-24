@@ -10,8 +10,8 @@ declare var moment:any;
 
 export class DatePickerComponent implements OnInit{
 
-	@Input() disableBefore:string;
-    @Input() disableAfter:string;
+	@Input() minDate:string;
+    @Input() maxDate:string;
     @Input() disableDays:Array<number>;
     @Input() toContainPrevMonth:boolean;
     @Input() toContainNextMonth:boolean;
@@ -59,7 +59,7 @@ export class DatePickerComponent implements OnInit{
 		this.currMonth = this.prevMonth;
 		//Set new previous month
 		let tempDate = new Date(this.currMonth+'/'+'1'+'/'+this.currYear);
-		if (this.currMonth=='Jan'){
+        if (this.currMonth=='Jan'){
 			//Set previous month to December
 			this.prevMonth = this.months[11].toString();
 		}
@@ -102,8 +102,8 @@ export class DatePickerComponent implements OnInit{
 		let temp = [];
 		for (let i=1;i<=tempLastDate;i++){
             let currentDate = moment().year(year).month(month).date(i);
-            let pastDate = moment(this.disableBefore);
-            let futureDate = moment(this.disableAfter).add(1, 'd');
+            let pastDate = moment(this.minDate);
+            let futureDate = moment(this.maxDate).add(1, 'd');
             let dbld = false;
             //To disable Days - Index based 0-6
             for (let dayIndex=0; dayIndex<this.disableDays.length; dayIndex++){
@@ -111,7 +111,7 @@ export class DatePickerComponent implements OnInit{
                     dbld = true;
                 }
             }
-            if (currentDate.isBefore(this.disableBefore, true) || currentDate.isAfter(futureDate, true)) {
+            if (currentDate.isBefore(this.minDate, true) || currentDate.isAfter(futureDate, true)) {
                 dbld = true;
             }
 			if (i!=date)
