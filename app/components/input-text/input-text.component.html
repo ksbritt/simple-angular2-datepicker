@@ -1,0 +1,17 @@
+
+<h4 class="header">Input</h4>
+<p class='sub-header'>A standard input</p>
+<input type="text" placeholder="Placeholder" input-text [(ngModel)]="text" class="form-control"> {{text}}
+
+
+<h4 class="header">Input with Error</h4>
+<p class='sub-header'>An input field with data that contains errors</p>
+	<input type="text" placeholder="Placeholder" input-text class="form-control ng-invalid">
+	<label class="csg-state-error">This field has an error.</label>
+
+<h4 class="header">Input Disabled</h4>
+<p class='sub-header'>An input field that is disabled</p>
+<input type="text" placeholder="Placeholder" input-text class="form-control" [disabled]="disabled">
+
+
+

@@ -1,0 +1,39 @@
+
+.input-calendar {
+  width: 235px; }
+
+.csg-inputtext { 
+    border: 1px solid #BCBEC0;
+    border-radius: 3px;  
+    padding: 10px 15px;
+}
+
+.csg-inputtext.csg-state-focus,
+.csg-inputtext.csg-state-focus.ng-invalid {
+    border: 1px solid #0088CE;
+    outline: none;
+  }
+
+.csg-inputtext.ng-invalid {
+  border: 1px solid #E70000;
+}
+
+.csg-inputtext.csg-state-disabled {
+  background-color: #E6E7E8;
+}
+
+i.fa.fa-calendar.fa-lg {
+    position: relative;
+    right: 34px;
+}
+
+i.fa.fa-calendar,
+i.fa.fa-chevron-up,
+i.fa.fa-chevron-down {color: #808285;}
+
+.csg-state-hover > i.fa.fa-calendar,
+.csg-state-hover > i.fa.fa-chevron-up,
+.csg-state-hover > i.fa.fa-chevron-down {color: #0088CE;}
+
+.fa-arrow-circle-left,
+.fa-arrow-circle-right {color: #0088CE;}

@@ -1,7 +1,7 @@
 {
-  "name": "angular2-simple-datepicker",
+  "name": "angular2-simple-datetimepicker",
   "version": "1.0.6",
-  "description": "Simple Angular2 Datepicker",
+  "description": "Simple Angular2 Date and Time picker",
   "keywords": [
     "datepicker",
     "angular2",
@@ -21,26 +21,27 @@
   },
   "license": "MIT",
   "dependencies": {
-    "angular2": "2.0.0-beta.6",
+    "angular2": "2.0.0-beta.13",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",
-    "moment": "^2.12.0",
+    "moment": "^2.13.0",
     "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.0",
-    "systemjs": "0.19.20",
-    "zone.js": "0.5.14"
+    "rxjs": "5.0.0-beta.6",
+    "systemjs": "0.19.25",
+    "zone.js": "0.6.10"
   },
   "devDependencies": {
-    "concurrently": "^1.0.0",
-    "lite-server": "^2.0.1",
-    "typescript": "^1.7.5",
-    "typings": "^0.6.8"
+    "concurrently": "^2.0.0",
+    "font-awesome": "github:fortawesome/Font-Awesome",
+    "lite-server": "^2.1.0",
+    "typescript": "^1.8.9",
+    "typings": "^0.7.11"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bhuvana084/simple-angular2-datepicker.git"
+    "url": "https://github.com/ksbritt/simple-angular2-datepicker.git"
   },
   "author": {
-    "name": "Bhuvaneswari Lakshminarayanan"
+    "name": "Katie Britt"
   }
 }

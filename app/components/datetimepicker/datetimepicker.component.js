@@ -1,4 +1,4 @@
-System.register(['angular2/core'], function(exports_1, context_1) {
+System.register(['angular2/core', '../../directives/datetimepicker/datetimepicker.directive'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,22 +10,26 @@ System.register(['angular2/core'], function(exports_1, context_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
-    var DatePickerComponent;
+    var core_1, datetimepicker_directive_1;
+    var DateTimePickerComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (datetimepicker_directive_1_1) {
+                datetimepicker_directive_1 = datetimepicker_directive_1_1;
             }],
         execute: function() {
-            DatePickerComponent = (function () {
-                function DatePickerComponent() {
+            DateTimePickerComponent = (function () {
+                function DateTimePickerComponent() {
                     this.value = '';
                     this.dates = [];
                     this.showDp = 'none';
                     this.selectedDate = new core_1.EventEmitter();
+                    this.selectedTime = new core_1.EventEmitter();
                 }
-                DatePickerComponent.prototype.ngOnChanges = function () {
+                DateTimePickerComponent.prototype.ngOnChanges = function () {
                     this.daysofWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
                     this.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                     this.currMonth = this.months[new Date().getMonth()].toString();
@@ -46,13 +50,13 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                         this.dates = this.setDateArray(this.currMonth, this.currYear, '');
                     }
                 };
-                DatePickerComponent.prototype.openDatePicker = function () {
+                DateTimePickerComponent.prototype.openDatePicker = function () {
                     if (this.showDp == 'none')
                         this.showDp = 'block';
                     else
                         this.showDp = 'none';
                 };
-                DatePickerComponent.prototype.setPrevMonth = function () {
+                DateTimePickerComponent.prototype.setPrevMonth = function () {
                     this.nextMonth = this.currMonth;
                     this.currMonth = this.prevMonth;
                     //Set new previous month
@@ -72,7 +76,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     //Set Date Array to previous month
                     this.dates = this.setDateArray(this.currMonth, this.currYear, '');
                 };
-                DatePickerComponent.prototype.setNextMonth = function () {
+                DateTimePickerComponent.prototype.setNextMonth = function () {
                     this.prevMonth = this.currMonth;
                     this.currMonth = this.nextMonth;
                     //Set new next month
@@ -92,27 +96,31 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     //Set Date Array to next month
                     this.dates = this.setDateArray(this.currMonth, this.currYear, '');
                 };
-                DatePickerComponent.prototype.setDateArray = function (month, year, date) {
+                DateTimePickerComponent.prototype.setDateArray = function (month, year, date) {
                     var tempLastDate = this.decideDate(month, year);
                     var temp = [];
                     for (var i = 1; i <= tempLastDate; i++) {
                         var currentDate = moment().year(year).month(month).date(i);
-                        var pastDate = moment(this.minDate);
-                        var futureDate = moment(this.maxDate).add(1, 'd');
+                        var pastDate = moment(this.minDate, "MM/DD/YYYY");
+                        var futureDate = moment(this.maxDate, "MM/DD/YYYY").add(1, 'd');
                         var dbld = false;
+                        var today = false;
                         //To disable Days - Index based 0-6
                         for (var dayIndex = 0; dayIndex < this.disableDays.length; dayIndex++) {
                             if (currentDate.day() == this.disableDays[dayIndex]) {
                                 dbld = true;
                             }
                         }
+                        if (i === moment().date()) {
+                            today = true;
+                        }
                         if (currentDate.isBefore(this.minDate, true) || currentDate.isAfter(futureDate, true)) {
                             dbld = true;
                         }
                         if (i != date)
-                            temp.push({ 'month': this.months.indexOf(month) + 1, 'date': i, 'disabled': dbld, 'selected': false, 'empty': false });
+                            temp.push({ 'month': this.months.indexOf(month) + 1, 'date': i, 'disabled': dbld, 'selected': false, 'today': today, 'empty': false });
                         else
-                            temp.push({ 'month': this.months.indexOf(month) + 1, 'date': i, 'disabled': dbld, 'selected': true, 'empty': false });
+                            temp.push({ 'month': this.months.indexOf(month) + 1, 'date': i, 'disabled': dbld, 'selected': true, 'today': today, 'empty': false });
                     }
                     this.completeDates = temp;
                     //Determine Date of First of the Month
@@ -164,7 +172,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     }
                     return tempDateMain;
                 };
-                DatePickerComponent.prototype.decideDate = function (month, year) {
+                DateTimePickerComponent.prototype.decideDate = function (month, year) {
                     var last = 31;
                     switch (month) {
                         case 'Feb':
@@ -188,7 +196,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                     }
                     return last;
                 };
-                DatePickerComponent.prototype.setDate = function (sDate) {
+                DateTimePickerComponent.prototype.setDate = function (sDate) {
                     if (!sDate.disabled) {
                         if (sDate.date != '') {
                             //Set the new date array with active date
@@ -201,40 +209,41 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], DatePickerComponent.prototype, "minDate", void 0);
+                ], DateTimePickerComponent.prototype, "minDate", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], DatePickerComponent.prototype, "maxDate", void 0);
+                ], DateTimePickerComponent.prototype, "maxDate", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Array)
-                ], DatePickerComponent.prototype, "disableDays", void 0);
+                ], DateTimePickerComponent.prototype, "disableDays", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Boolean)
-                ], DatePickerComponent.prototype, "toContainPrevMonth", void 0);
+                ], DateTimePickerComponent.prototype, "toContainPrevMonth", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Boolean)
-                ], DatePickerComponent.prototype, "toContainNextMonth", void 0);
+                ], DateTimePickerComponent.prototype, "toContainNextMonth", void 0);
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', String)
-                ], DatePickerComponent.prototype, "value", void 0);
-                DatePickerComponent = __decorate([
+                ], DateTimePickerComponent.prototype, "value", void 0);
+                DateTimePickerComponent = __decorate([
                     core_1.Component({
-                        selector: 'date-picker',
-                        templateUrl: 'app/datepicker.html',
-                        styleUrls: ['app/datepicker.css'],
-                        outputs: ['selectedDate']
+                        selector: 'date-time-picker',
+                        templateUrl: 'app/components/datetimepicker/datetimepicker.component.html',
+                        styleUrls: ['app/components/datetimepicker/datetimepicker.component.css'],
+                        outputs: ['selectedDate', 'selectedTime'],
+                        directives: [datetimepicker_directive_1.DateTimePickerDirective]
                     }), 
                     __metadata('design:paramtypes', [])
-                ], DatePickerComponent);
-                return DatePickerComponent;
+                ], DateTimePickerComponent);
+                return DateTimePickerComponent;
             }());
-            exports_1("DatePickerComponent", DatePickerComponent);
+            exports_1("DateTimePickerComponent", DateTimePickerComponent);
         }
     }
 });
-//# sourceMappingURL=datepicker.js.map
+//# sourceMappingURL=datetimepicker.component.js.map
