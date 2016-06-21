@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../../directives/datetimepicker/datetimepicker.directive'], function(exports_1, context_1) {
+System.register(['angular2/core', '/app/components/datetimepicker/timepicker.component', '../../directives/datetimepicker/datetimepicker.directive'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,12 +10,15 @@ System.register(['angular2/core', '../../directives/datetimepicker/datetimepicke
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, datetimepicker_directive_1;
+    var core_1, timepicker_component_1, datetimepicker_directive_1;
     var DateTimePickerComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (timepicker_component_1_1) {
+                timepicker_component_1 = timepicker_component_1_1;
             },
             function (datetimepicker_directive_1_1) {
                 datetimepicker_directive_1 = datetimepicker_directive_1_1;
@@ -234,9 +237,8 @@ System.register(['angular2/core', '../../directives/datetimepicker/datetimepicke
                     core_1.Component({
                         selector: 'date-time-picker',
                         templateUrl: 'app/components/datetimepicker/datetimepicker.component.html',
-                        styleUrls: ['app/components/datetimepicker/datetimepicker.component.css'],
                         outputs: ['selectedDate', 'selectedTime'],
-                        directives: [datetimepicker_directive_1.DateTimePickerDirective]
+                        directives: [timepicker_component_1.TimepickerComponent, datetimepicker_directive_1.DateTimePickerDirective]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], DateTimePickerComponent);

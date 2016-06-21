@@ -3,6 +3,7 @@ import {DateTimePickerComponent} from './components/datetimepicker/datetimepicke
 import {DateTimePickerDirective} from './directives/datetimepicker/datetimepicker.directive';
 import {InputTextComponent} from './components/input-text/input-text.component';
 import {InputTextDirective} from './directives/input-text/input-text.directive';
+import {TimepickerComponent} from './components/datetimepicker/timepicker.component';
 declare var moment: any;
 
 @Component({
@@ -19,7 +20,7 @@ declare var moment: any;
             [toContainNextMonth]="toContainNextMonth"
             (selectedDate)='setDate($event)'></date-time-picker>
     `,
-    directives: [DateTimePickerComponent, DateTimePickerDirective, InputTextComponent, InputTextDirective]
+    directives: [DateTimePickerComponent, DateTimePickerDirective, InputTextComponent, InputTextDirective, TimepickerComponent]
 })
 export class AppComponent {
 

@@ -1,13 +1,13 @@
 import {Component, OnChanges, Input, EventEmitter, HostListener, ElementRef} from 'angular2/core';
+import {TimepickerComponent} from '/app/components/datetimepicker/timepicker.component';
 import {DateTimePickerDirective} from '../../directives/datetimepicker/datetimepicker.directive';
 declare var moment:any;
 
 @Component({
     selector: 'date-time-picker',
     templateUrl: 'app/components/datetimepicker/datetimepicker.component.html',
-	styleUrls: ['app/components/datetimepicker/datetimepicker.component.css'],
 	outputs: ['selectedDate', 'selectedTime'],
-	directives: [DateTimePickerDirective]
+	directives: [TimepickerComponent, DateTimePickerDirective]
 })
 
 export class DateTimePickerComponent implements OnChanges{

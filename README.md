@@ -1,4 +1,4 @@
-# Angular 2 Datepicker
+# Angular 2 Date and Time picker
 A simple date and time picker developed as a Angular2 component.
 
 Includes the following - 

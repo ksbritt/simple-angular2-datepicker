@@ -1,4 +1,4 @@
-System.register(['angular2/core', './components/datetimepicker/datetimepicker.component', './directives/datetimepicker/datetimepicker.directive', './components/input-text/input-text.component', './directives/input-text/input-text.directive'], function(exports_1, context_1) {
+System.register(['angular2/core', './components/datetimepicker/datetimepicker.component', './directives/datetimepicker/datetimepicker.directive', './components/input-text/input-text.component', './directives/input-text/input-text.directive', './components/datetimepicker/timepicker.component'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './components/datetimepicker/datetimepicker.co
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, datetimepicker_component_1, datetimepicker_directive_1, input_text_component_1, input_text_directive_1;
+    var core_1, datetimepicker_component_1, datetimepicker_directive_1, input_text_component_1, input_text_directive_1, timepicker_component_1;
     var AppComponent;
     return {
         setters:[
@@ -28,6 +28,9 @@ System.register(['angular2/core', './components/datetimepicker/datetimepicker.co
             },
             function (input_text_directive_1_1) {
                 input_text_directive_1 = input_text_directive_1_1;
+            },
+            function (timepicker_component_1_1) {
+                timepicker_component_1 = timepicker_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
@@ -51,7 +54,7 @@ System.register(['angular2/core', './components/datetimepicker/datetimepicker.co
                     core_1.Component({
                         selector: 'my-app',
                         template: "\n    \t<h3>Angular 2 Date and Time Picker</h3>\n    \t<input class=\"input-calendar\" input-text #dateText type='text' value={{selDate}} (change)=\"setInputDate($event)\"/>\n    \t<date-time-picker \n            [value]=\"value\"\n            [minDate]=\"minDate\" \n            [maxDate]=\"maxDate\"\n            [disableDays]=\"disableDays\"\n            [toContainPrevMonth]=\"toContainPrevMonth\"\n            [toContainNextMonth]=\"toContainNextMonth\"\n            (selectedDate)='setDate($event)'></date-time-picker>\n    ",
-                        directives: [datetimepicker_component_1.DateTimePickerComponent, datetimepicker_directive_1.DateTimePickerDirective, input_text_component_1.InputTextComponent, input_text_directive_1.InputTextDirective]
+                        directives: [datetimepicker_component_1.DateTimePickerComponent, datetimepicker_directive_1.DateTimePickerDirective, input_text_component_1.InputTextComponent, input_text_directive_1.InputTextDirective, timepicker_component_1.TimepickerComponent]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
