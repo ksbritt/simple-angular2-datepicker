@@ -114,7 +114,7 @@ System.register(['angular2/core', '/app/components/datetimepicker/timepicker.com
                                 dbld = true;
                             }
                         }
-                        if (i === moment().date()) {
+                        if ((this.months.indexOf(month) + 1 === moment().month() + 1 && i === moment().date())) {
                             today = true;
                         }
                         if (currentDate.isBefore(this.minDate, true) || currentDate.isAfter(futureDate, true)) {
