@@ -133,6 +133,25 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 		this.showSpinners = def(this.showSpinners, isDefined, timepickerConfig.showSpinners);
 	}
 
+	setTime() {
+		let hours = this.selected.getHours();
+		let minutes = this.selected.getMinutes();
+
+		if (this.showMeridian) {
+			// Convert 24 to 12 hour system
+			hours = (hours === 0 || hours === 12) ? 12 : hours % 12;
+		}
+
+		this.hours = this.pad(hours);
+		this.minutes = this.pad(minutes);
+		this.meridian = this.selected.getHours() < 12 ? this.meridians[0] : this.meridians[1];
+
+		let time = " " + this.hours + ":" + this.minutes + " " + this.meridian
+		let selTime = time;
+		console.log(selTime)
+		this.selectedTime.next(selTime);
+	}
+
 
 	private refresh(type?: string) {
 		this.updateTemplate();
@@ -181,22 +200,6 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 
 	}
 
-	private setTime() {
-		let hours = this.selected.getHours();
-		let minutes = this.selected.getMinutes();
-
-		if (this.showMeridian) {
-			// Convert 24 to 12 hour system
-			hours = (hours === 0 || hours === 12) ? 12 : hours % 12;
-		}
-		this.hours = this.pad(hours);
-		this.minutes = this.pad(minutes);
-		this.meridian = this.selected.getHours() < 12 ? this.meridians[0] : this.meridians[1];
-
-		let time = this.hours + ":" + this.minutes + " " + this.meridian
-		let selTime = time;
-		console.log(selTime);
-	}
 
 	private updateHours() {
 		if (this.readonlyInput) {

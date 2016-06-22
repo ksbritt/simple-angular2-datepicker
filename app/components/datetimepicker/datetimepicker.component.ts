@@ -6,7 +6,7 @@ declare var moment:any;
 @Component({
     selector: 'date-time-picker',
     templateUrl: 'app/components/datetimepicker/datetimepicker.component.html',
-	outputs: ['selectedDate'],
+	outputs: ['selectedDate', 'selectedTime'],
 	directives: [TimepickerComponent, DateTimePickerDirective]
 })
 
@@ -32,6 +32,7 @@ export class DateTimePickerComponent implements OnChanges{
 	private nextYear:string;
 	private showDp = 'none';
 	public selectedDate = new EventEmitter();
+	public selectedTime = new EventEmitter();
 
 	ngOnChanges() {
         this.daysofWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
@@ -54,13 +55,6 @@ export class DateTimePickerComponent implements OnChanges{
             this.dates = this.setDateArray(this.currMonth, this.currYear, '');
         }
 
-	}
-
-	openDatePicker() {
-		if (this.showDp == 'none')
-			this.showDp = 'block';
-		else
-			this.showDp = 'none';
 	}
 
 	setPrevMonth() {

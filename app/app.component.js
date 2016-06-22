@@ -44,16 +44,25 @@ System.register(['angular2/core', './components/datetimepicker/datetimepicker.co
                     this.toContainNextMonth = false;
                     this.value = '';
                 }
+                AppComponent.prototype.openDatePicker = function () {
+                    if (this.showDp == 'none')
+                        this.showDp = 'block';
+                    else
+                        this.showDp = 'none';
+                };
                 AppComponent.prototype.setInput = function (event) {
                     this.value = event.target.value;
                 };
                 AppComponent.prototype.setDate = function (date) {
                     this.selDate = date;
                 };
+                AppComponent.prototype.setTime = function (time) {
+                    this.selTime = time;
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n    \t<h3>Angular 2 Date and Time Picker</h3>\n    \t<input class=\"input-calendar\" input-text type='text' value={{selDate}}{{selTime}} (change)=\"setInput($event)\"/>\n        <date-time-picker \n            [value]=\"value\"\n            [minDate]=\"minDate\" \n            [maxDate]=\"maxDate\"\n            [disableDays]=\"disableDays\"\n            [toContainPrevMonth]=\"toContainPrevMonth\"\n            [toContainNextMonth]=\"toContainNextMonth\"\n            (selectedDate)='setDate($event)'></date-time-picker>\n    ",
+                        template: "\n    \t<h3>Angular 2 Date and Time Picker</h3>\n    \t<input class=\"input-calendar\" input-text type='text' value={{selDate}}{{selTime}} (change)=\"setInput($event)\"/>\n        <i class=\"fa fa-calendar fa-lg\" (click)='openDatePicker()'></i>\n        <div class=\"arrowbox\" [style.display]=\"showDp\">\n        <date-time-picker \n            [value]=\"value\"\n            [minDate]=\"minDate\" \n            [maxDate]=\"maxDate\"\n            [disableDays]=\"disableDays\"\n            [toContainPrevMonth]=\"toContainPrevMonth\"\n            [toContainNextMonth]=\"toContainNextMonth\"\n            (selectedDate)='setDate($event)'\n            ></date-time-picker>\n            <timepicker [ngModel] (selectedTime)='setTime($event)'></timepicker>\n            </div>\n    ",
                         directives: [datetimepicker_component_1.DateTimePickerComponent, datetimepicker_directive_1.DateTimePickerDirective, input_text_component_1.InputTextComponent, input_text_directive_1.InputTextDirective, timepicker_component_1.TimepickerComponent]
                     }), 
                     __metadata('design:paramtypes', [])

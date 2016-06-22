@@ -11,6 +11,8 @@ declare var moment: any;
     template: `
     	<h3>Angular 2 Date and Time Picker</h3>
     	<input class="input-calendar" input-text type='text' value={{selDate}}{{selTime}} (change)="setInput($event)"/>
+        <i class="fa fa-calendar fa-lg" (click)='openDatePicker()'></i>
+        <div class="arrowbox" [style.display]="showDp">
         <date-time-picker 
             [value]="value"
             [minDate]="minDate" 
@@ -18,7 +20,10 @@ declare var moment: any;
             [disableDays]="disableDays"
             [toContainPrevMonth]="toContainPrevMonth"
             [toContainNextMonth]="toContainNextMonth"
-            (selectedDate)='setDate($event)'></date-time-picker>
+            (selectedDate)='setDate($event)'
+            ></date-time-picker>
+            <timepicker [ngModel] (selectedTime)='setTime($event)'></timepicker>
+            </div>
     `,
     directives: [DateTimePickerComponent, DateTimePickerDirective, InputTextComponent, InputTextDirective, TimepickerComponent]
 })
@@ -33,12 +38,24 @@ export class AppComponent {
     private toContainNextMonth: boolean = false;
     private value: string = '';
 	
+
+    openDatePicker() {
+        if (this.showDp == 'none')
+            this.showDp = 'block';
+        else
+            this.showDp = 'none';
+    }
+    
     setInput(event) {
         this.value = event.target.value;
     }
     
-	setDate(date){
-		this.selDate = date;
-	}
+    setDate(date) {
+        this.selDate = date;
+    }
+
+    setTime(time) {
+        this.selTime = time;
+    }
 
 }

@@ -30,6 +30,7 @@ System.register(['angular2/core', '../datetimepicker/timepicker.component', '../
                     this.dates = [];
                     this.showDp = 'none';
                     this.selectedDate = new core_1.EventEmitter();
+                    this.selectedTime = new core_1.EventEmitter();
                 }
                 DateTimePickerComponent.prototype.ngOnChanges = function () {
                     this.daysofWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
@@ -51,12 +52,6 @@ System.register(['angular2/core', '../datetimepicker/timepicker.component', '../
                     else {
                         this.dates = this.setDateArray(this.currMonth, this.currYear, '');
                     }
-                };
-                DateTimePickerComponent.prototype.openDatePicker = function () {
-                    if (this.showDp == 'none')
-                        this.showDp = 'block';
-                    else
-                        this.showDp = 'none';
                 };
                 DateTimePickerComponent.prototype.setPrevMonth = function () {
                     this.nextMonth = this.currMonth;
@@ -236,7 +231,7 @@ System.register(['angular2/core', '../datetimepicker/timepicker.component', '../
                     core_1.Component({
                         selector: 'date-time-picker',
                         templateUrl: 'app/components/datetimepicker/datetimepicker.component.html',
-                        outputs: ['selectedDate'],
+                        outputs: ['selectedDate', 'selectedTime'],
                         directives: [timepicker_component_1.TimepickerComponent, datetimepicker_directive_1.DateTimePickerDirective]
                     }), 
                     __metadata('design:paramtypes', [])

@@ -109,6 +109,21 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                     this.showMeridian = def(this.showMeridian, isDefined, timepickerConfig.showMeridian);
                     this.showSpinners = def(this.showSpinners, isDefined, timepickerConfig.showSpinners);
                 };
+                TimepickerComponent.prototype.setTime = function () {
+                    var hours = this.selected.getHours();
+                    var minutes = this.selected.getMinutes();
+                    if (this.showMeridian) {
+                        // Convert 24 to 12 hour system
+                        hours = (hours === 0 || hours === 12) ? 12 : hours % 12;
+                    }
+                    this.hours = this.pad(hours);
+                    this.minutes = this.pad(minutes);
+                    this.meridian = this.selected.getHours() < 12 ? this.meridians[0] : this.meridians[1];
+                    var time = " " + this.hours + ":" + this.minutes + " " + this.meridian;
+                    var selTime = time;
+                    console.log(selTime);
+                    this.selectedTime.next(selTime);
+                };
                 TimepickerComponent.prototype.refresh = function (type) {
                     this.updateTemplate();
                     this.cd.viewToModelUpdate(this.selected);
@@ -146,20 +161,6 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                 };
                 TimepickerComponent.prototype.pad = function (value) {
                     return (isDefined(value) && value.toString().length < 2) ? '0' + value : value.toString();
-                };
-                TimepickerComponent.prototype.setTime = function () {
-                    var hours = this.selected.getHours();
-                    var minutes = this.selected.getMinutes();
-                    if (this.showMeridian) {
-                        // Convert 24 to 12 hour system
-                        hours = (hours === 0 || hours === 12) ? 12 : hours % 12;
-                    }
-                    this.hours = this.pad(hours);
-                    this.minutes = this.pad(minutes);
-                    this.meridian = this.selected.getHours() < 12 ? this.meridians[0] : this.meridians[1];
-                    var time = this.hours + ":" + this.minutes + " " + this.meridian;
-                    var selTime = time;
-                    console.log(selTime);
                 };
                 TimepickerComponent.prototype.updateHours = function () {
                     if (this.readonlyInput) {
