@@ -100,7 +100,7 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                 TimepickerComponent.prototype.ngOnInit = function () {
                     this.meridians = def(this.meridians, isDefined, timepickerConfig.meridians) || ['AM', 'PM'];
                     this.readonlyInput = def(this.readonlyInput, isDefined, timepickerConfig.readonlyInput);
-                    this.setTimeEvent();
+                    this.setTime();
                     this.hourStep = def(this.hourStep, isDefined, timepickerConfig.hourStep);
                     this.minuteStep = def(this.minuteStep, isDefined, timepickerConfig.minuteStep);
                     this.min = def(this.min, isDefined, timepickerConfig.min);
@@ -147,7 +147,7 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                 TimepickerComponent.prototype.pad = function (value) {
                     return (isDefined(value) && value.toString().length < 2) ? '0' + value : value.toString();
                 };
-                TimepickerComponent.prototype.setTimeEvent = function () {
+                TimepickerComponent.prototype.setTime = function () {
                     var hours = this.selected.getHours();
                     var minutes = this.selected.getMinutes();
                     if (this.showMeridian) {
@@ -160,7 +160,6 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                     var time = this.hours + ":" + this.minutes + " " + this.meridian;
                     var selTime = time;
                     console.log(selTime);
-                    this.selectedTime.next(selTime);
                 };
                 TimepickerComponent.prototype.updateHours = function () {
                     if (this.readonlyInput) {

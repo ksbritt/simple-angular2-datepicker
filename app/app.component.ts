@@ -10,7 +10,7 @@ declare var moment: any;
     selector: 'my-app',
     template: `
     	<h3>Angular 2 Date and Time Picker</h3>
-    	<input class="input-calendar" input-text #dateText type='text' value={{selDate}}{{selTime}} (change)="setInput($event)"/>
+    	<input class="input-calendar" input-text type='text' value={{selDate}}{{selTime}} (change)="setInput($event)"/>
         <date-time-picker 
             [value]="value"
             [minDate]="minDate" 
@@ -23,7 +23,7 @@ declare var moment: any;
     directives: [DateTimePickerComponent, DateTimePickerDirective, InputTextComponent, InputTextDirective, TimepickerComponent]
 })
 export class AppComponent {
-
+ 
     private selDate: string = 'MM/DD/YYYY ';
     private selTime: string = ' 00:00 AM/PM'
     private minDate = moment();
@@ -40,9 +40,5 @@ export class AppComponent {
 	setDate(date){
 		this.selDate = date;
 	}
-
-    setTime(time){
-        this.selTime = time;
-    }
 
 }

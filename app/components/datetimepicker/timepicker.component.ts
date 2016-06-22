@@ -89,7 +89,6 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 	// result value
 	private _selected: Date = new Date();
 
-
 	private _showMeridian: boolean;
 	private meridian: any; // ??
 
@@ -123,7 +122,7 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 
 		this.readonlyInput = def(this.readonlyInput, isDefined, timepickerConfig.readonlyInput);
 
-		this.setTimeEvent();
+		this.setTime();
 
 		this.hourStep = def(this.hourStep, isDefined, timepickerConfig.hourStep);
 		this.minuteStep = def(this.minuteStep, isDefined, timepickerConfig.minuteStep);
@@ -182,7 +181,7 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 
 	}
 
-	private setTimeEvent() {
+	private setTime() {
 		let hours = this.selected.getHours();
 		let minutes = this.selected.getMinutes();
 
@@ -196,8 +195,7 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 
 		let time = this.hours + ":" + this.minutes + " " + this.meridian
 		let selTime = time;
-		console.log(selTime)
-		this.selectedTime.next(selTime);
+		console.log(selTime);
 	}
 
 	private updateHours() {
