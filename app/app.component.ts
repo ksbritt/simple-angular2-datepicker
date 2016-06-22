@@ -10,8 +10,8 @@ declare var moment: any;
     selector: 'my-app',
     template: `
     	<h3>Angular 2 Date and Time Picker</h3>
-    	<input class="input-calendar" input-text #dateText type='text' value={{selDate}} (change)="setInputDate($event)"/>
-    	<date-time-picker 
+    	<input class="input-calendar" input-text #dateText type='text' value={{selDate}}{{selTime}} (change)="setInput($event)"/>
+        <date-time-picker 
             [value]="value"
             [minDate]="minDate" 
             [maxDate]="maxDate"
@@ -24,8 +24,8 @@ declare var moment: any;
 })
 export class AppComponent {
 
-    private selDate: string = 'MM/DD/YYYY';
-    private selTime: string = '00:00 AM/PM'
+    private selDate: string = 'MM/DD/YYYY ';
+    private selTime: string = ' 00:00 AM/PM'
     private minDate = moment();
     private maxDate: string = '12/31/2035';
     private disableDays: Array<number> = [0, 6];    //For Sunday and Saturday
@@ -33,12 +33,16 @@ export class AppComponent {
     private toContainNextMonth: boolean = false;
     private value: string = '';
 	
-    setInputDate(event) {
+    setInput(event) {
         this.value = event.target.value;
     }
     
 	setDate(date){
 		this.selDate = date;
 	}
+
+    setTime(time){
+        this.selTime = time;
+    }
 
 }

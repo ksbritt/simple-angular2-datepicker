@@ -1,4 +1,4 @@
-System.register(['angular2/core', '/app/components/datetimepicker/timepicker.component', '../../directives/datetimepicker/datetimepicker.directive'], function(exports_1, context_1) {
+System.register(['angular2/core', '../datetimepicker/timepicker.component', '../../directives/datetimepicker/datetimepicker.directive'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -30,7 +30,6 @@ System.register(['angular2/core', '/app/components/datetimepicker/timepicker.com
                     this.dates = [];
                     this.showDp = 'none';
                     this.selectedDate = new core_1.EventEmitter();
-                    this.selectedTime = new core_1.EventEmitter();
                 }
                 DateTimePickerComponent.prototype.ngOnChanges = function () {
                     this.daysofWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
@@ -237,7 +236,7 @@ System.register(['angular2/core', '/app/components/datetimepicker/timepicker.com
                     core_1.Component({
                         selector: 'date-time-picker',
                         templateUrl: 'app/components/datetimepicker/datetimepicker.component.html',
-                        outputs: ['selectedDate', 'selectedTime'],
+                        outputs: ['selectedDate'],
                         directives: [timepicker_component_1.TimepickerComponent, datetimepicker_directive_1.DateTimePickerDirective]
                     }), 
                     __metadata('design:paramtypes', [])

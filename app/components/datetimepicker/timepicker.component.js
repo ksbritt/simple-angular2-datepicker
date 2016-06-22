@@ -55,12 +55,10 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                 function TimepickerComponent(cd) {
                     this.cd = cd;
                     this.meridians = ['AM', 'PM'];
+                    this.value = '';
+                    this.selectedTime = new core_1.EventEmitter();
                     // result value
                     this._selected = new Date();
-                    this.onChange = function (_) {
-                    };
-                    this.onTouched = function () {
-                    };
                     cd.valueAccessor = this;
                 }
                 Object.defineProperty(TimepickerComponent.prototype, "showMeridian", {
@@ -99,20 +97,10 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                     enumerable: true,
                     configurable: true
                 });
-                // todo: add formatter value to Date object
                 TimepickerComponent.prototype.ngOnInit = function () {
-                    // todo: take in account $locale.DATETIME_FORMATS.AMPMS;
                     this.meridians = def(this.meridians, isDefined, timepickerConfig.meridians) || ['AM', 'PM'];
-                    this.mousewheel = def(this.mousewheel, isDefined, timepickerConfig.mousewheel);
-                    if (this.mousewheel) {
-                        this.setupMousewheelEvents();
-                    }
-                    this.arrowkeys = def(this.arrowkeys, isDefined, timepickerConfig.arrowkeys);
-                    if (this.arrowkeys) {
-                        this.setupArrowkeyEvents();
-                    }
                     this.readonlyInput = def(this.readonlyInput, isDefined, timepickerConfig.readonlyInput);
-                    this.setupInputEvents();
+                    this.setTimeEvent();
                     this.hourStep = def(this.hourStep, isDefined, timepickerConfig.hourStep);
                     this.minuteStep = def(this.minuteStep, isDefined, timepickerConfig.minuteStep);
                     this.min = def(this.min, isDefined, timepickerConfig.min);
@@ -121,18 +109,7 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                     this.showMeridian = def(this.showMeridian, isDefined, timepickerConfig.showMeridian);
                     this.showSpinners = def(this.showSpinners, isDefined, timepickerConfig.showSpinners);
                 };
-                TimepickerComponent.prototype.writeValue = function (v) {
-                    if (v === this.selected) {
-                        return;
-                    }
-                    if (v && v instanceof Date) {
-                        this.selected = v;
-                        return;
-                    }
-                    this.selected = v ? new Date(v) : null;
-                };
                 TimepickerComponent.prototype.refresh = function (type) {
-                    // this.makeValid();
                     this.updateTemplate();
                     this.cd.viewToModelUpdate(this.selected);
                 };
@@ -143,10 +120,6 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                         // Convert 24 to 12 hour system
                         hours = (hours === 0 || hours === 12) ? 12 : hours % 12;
                     }
-                    // this.hours = keyboardChange === 'h' ? hours : this.pad(hours);
-                    // if (keyboardChange !== 'm') {
-                    //  this.minutes = this.pad(minutes);
-                    // }
                     this.hours = this.pad(hours);
                     this.minutes = this.pad(minutes);
                     this.meridian = this.selected.getHours() < 12 ? this.meridians[0] : this.meridians[1];
@@ -174,11 +147,20 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                 TimepickerComponent.prototype.pad = function (value) {
                     return (isDefined(value) && value.toString().length < 2) ? '0' + value : value.toString();
                 };
-                TimepickerComponent.prototype.setupMousewheelEvents = function () {
-                };
-                TimepickerComponent.prototype.setupArrowkeyEvents = function () {
-                };
-                TimepickerComponent.prototype.setupInputEvents = function () {
+                TimepickerComponent.prototype.setTimeEvent = function () {
+                    var hours = this.selected.getHours();
+                    var minutes = this.selected.getMinutes();
+                    if (this.showMeridian) {
+                        // Convert 24 to 12 hour system
+                        hours = (hours === 0 || hours === 12) ? 12 : hours % 12;
+                    }
+                    this.hours = this.pad(hours);
+                    this.minutes = this.pad(minutes);
+                    this.meridian = this.selected.getHours() < 12 ? this.meridians[0] : this.meridians[1];
+                    var time = this.hours + ":" + this.minutes + " " + this.meridian;
+                    var selTime = time;
+                    console.log(selTime);
+                    this.selectedTime.next(selTime);
                 };
                 TimepickerComponent.prototype.updateHours = function () {
                     if (this.readonlyInput) {
@@ -195,15 +177,6 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                         this.refresh('h');
                     }
                 };
-                TimepickerComponent.prototype.hoursOnBlur = function (event) {
-                    if (this.readonlyInput) {
-                        return;
-                    }
-                    // todo: binded with validation
-                    if (!this.invalidHours && parseInt(this.hours, 10) < 10) {
-                        this.hours = this.pad(this.hours);
-                    }
-                };
                 TimepickerComponent.prototype.updateMinutes = function () {
                     if (this.readonlyInput) {
                         return;
@@ -217,14 +190,6 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                     }
                     else {
                         this.refresh('m');
-                    }
-                };
-                TimepickerComponent.prototype.minutesOnBlur = function (event) {
-                    if (this.readonlyInput) {
-                        return;
-                    }
-                    if (!this.invalidMinutes && parseInt(this.minutes, 10) < 10) {
-                        this.minutes = this.pad(this.minutes);
                     }
                 };
                 TimepickerComponent.prototype.noIncrementHours = function () {
@@ -285,12 +250,6 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                         this.addMinutesToSelected(12 * 60 * sign);
                     }
                 };
-                TimepickerComponent.prototype.registerOnChange = function (fn) {
-                    this.onChange = fn;
-                };
-                TimepickerComponent.prototype.registerOnTouched = function (fn) {
-                    this.onTouched = fn;
-                };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Number)
@@ -329,6 +288,10 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                 ], TimepickerComponent.prototype, "meridians", void 0);
                 __decorate([
                     core_1.Input(), 
+                    __metadata('design:type', String)
+                ], TimepickerComponent.prototype, "value", void 0);
+                __decorate([
+                    core_1.Input(), 
                     __metadata('design:type', Object)
                 ], TimepickerComponent.prototype, "showMeridian", null);
                 TimepickerComponent = __decorate([
@@ -336,7 +299,8 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                         selector: 'timepicker[ngModel]',
                         directives: [common_1.NgClass, input_text_directive_1.InputTextDirective],
                         templateUrl: './app/components/datetimepicker/timepicker.component.html',
-                        providers: [common_1.NgModel]
+                        providers: [common_1.NgModel],
+                        outputs: ['selectedTime']
                     }),
                     __param(0, core_1.Self()), 
                     __metadata('design:paramtypes', [common_1.NgModel])

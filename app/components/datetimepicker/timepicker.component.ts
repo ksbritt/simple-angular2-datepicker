@@ -48,7 +48,8 @@ function addMinutes(date: any, minutes: number) {
 	selector: 'timepicker[ngModel]',
 	directives: [NgClass, InputTextDirective],
 	templateUrl: './app/components/datetimepicker/timepicker.component.html',
-	providers: [NgModel]
+	providers: [NgModel],
+	outputs: ['selectedTime']
 })
 export class TimepickerComponent implements ControlValueAccessor, OnInit {
 	// config
@@ -61,6 +62,9 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 	@Input() private min: Date;
 	@Input() private max: Date;
 	@Input() private meridians: Array<string> = ['AM', 'PM'];
+	@Input() value: string = '';
+
+	public selectedTime = new EventEmitter();
 
 	@Input() private get showMeridian() {
 		return this._showMeridian;
@@ -84,6 +88,7 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 
 	// result value
 	private _selected: Date = new Date();
+
 
 	private _showMeridian: boolean;
 	private meridian: any; // ??
@@ -112,22 +117,13 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 		cd.valueAccessor = this;
 	}
 
-	// todo: add formatter value to Date object
 	ngOnInit() {
-		// todo: take in account $locale.DATETIME_FORMATS.AMPMS;
+
 		this.meridians = def(this.meridians, isDefined, timepickerConfig.meridians) || ['AM', 'PM'];
-		this.mousewheel = def(this.mousewheel, isDefined, timepickerConfig.mousewheel);
-		if (this.mousewheel) {
-			this.setupMousewheelEvents();
-		}
-		this.arrowkeys = def(this.arrowkeys, isDefined, timepickerConfig.arrowkeys);
-		if (this.arrowkeys) {
-			this.setupArrowkeyEvents();
-		}
 
 		this.readonlyInput = def(this.readonlyInput, isDefined, timepickerConfig.readonlyInput);
 
-		this.setupInputEvents();
+		this.setTimeEvent();
 
 		this.hourStep = def(this.hourStep, isDefined, timepickerConfig.hourStep);
 		this.minuteStep = def(this.minuteStep, isDefined, timepickerConfig.minuteStep);
@@ -138,19 +134,8 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 		this.showSpinners = def(this.showSpinners, isDefined, timepickerConfig.showSpinners);
 	}
 
-	writeValue(v: any) {
-		if (v === this.selected) {
-			return;
-		}
-		if (v && v instanceof Date) {
-			this.selected = v;
-			return;
-		}
-		this.selected = v ? new Date(v) : null;
-	}
 
 	private refresh(type?: string) {
-		// this.makeValid();
 		this.updateTemplate();
 		this.cd.viewToModelUpdate(this.selected);
 	}
@@ -164,10 +149,6 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 			hours = (hours === 0 || hours === 12) ? 12 : hours % 12;
 		}
 
-		// this.hours = keyboardChange === 'h' ? hours : this.pad(hours);
-		// if (keyboardChange !== 'm') {
-		//  this.minutes = this.pad(minutes);
-		// }
 		this.hours = this.pad(hours);
 		this.minutes = this.pad(minutes);
 		this.meridian = this.selected.getHours() < 12 ? this.meridians[0] : this.meridians[1];
@@ -198,17 +179,25 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 
 	private pad(value: any) {
 		return (isDefined(value) && value.toString().length < 2) ? '0' + value : value.toString();
+
 	}
 
+	private setTimeEvent() {
+		let hours = this.selected.getHours();
+		let minutes = this.selected.getMinutes();
 
-	private setupMousewheelEvents() {
-	}
+		if (this.showMeridian) {
+			// Convert 24 to 12 hour system
+			hours = (hours === 0 || hours === 12) ? 12 : hours % 12;
+		}
+		this.hours = this.pad(hours);
+		this.minutes = this.pad(minutes);
+		this.meridian = this.selected.getHours() < 12 ? this.meridians[0] : this.meridians[1];
 
-	private setupArrowkeyEvents() {
-	}
-
-	private setupInputEvents() {
-
+		let time = this.hours + ":" + this.minutes + " " + this.meridian
+		let selTime = time;
+		console.log(selTime)
+		this.selectedTime.next(selTime);
 	}
 
 	private updateHours() {
@@ -233,16 +222,6 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 		}
 	}
 
-	private hoursOnBlur(event: Event) {
-		if (this.readonlyInput) {
-			return;
-		}
-
-		// todo: binded with validation
-		if (!this.invalidHours && parseInt(this.hours, 10) < 10) {
-			this.hours = this.pad(this.hours);
-		}
-	}
 
 	private updateMinutes() {
 		if (this.readonlyInput) {
@@ -266,15 +245,7 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 		}
 	}
 
-	private minutesOnBlur(event: Event) {
-		if (this.readonlyInput) {
-			return;
-		}
 
-		if (!this.invalidMinutes && parseInt(this.minutes, 10) < 10) {
-			this.minutes = this.pad(this.minutes);
-		}
-	}
 
 	private noIncrementHours() {
 		let incrementedSelected = addMinutes(this.selected, this.hourStep * 60);
@@ -344,20 +315,6 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 			this.addMinutesToSelected(12 * 60 * sign);
 		}
 	}
-
-	onChange = (_: any) => {
-	};
-	onTouched = () => {
-	};
-
-	registerOnChange(fn: (_: any) => {}): void {
-		this.onChange = fn;
-	}
-
-	registerOnTouched(fn: () => {}): void {
-		this.onTouched = fn;
-	}
-
 
 }
 

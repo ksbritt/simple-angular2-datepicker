@@ -35,8 +35,8 @@ System.register(['angular2/core', './components/datetimepicker/datetimepicker.co
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
-                    this.selDate = 'MM/DD/YYYY';
-                    this.selTime = '00:00 AM/PM';
+                    this.selDate = 'MM/DD/YYYY ';
+                    this.selTime = ' 00:00 AM/PM';
                     this.minDate = moment();
                     this.maxDate = '12/31/2035';
                     this.disableDays = [0, 6]; //For Sunday and Saturday
@@ -44,16 +44,19 @@ System.register(['angular2/core', './components/datetimepicker/datetimepicker.co
                     this.toContainNextMonth = false;
                     this.value = '';
                 }
-                AppComponent.prototype.setInputDate = function (event) {
+                AppComponent.prototype.setInput = function (event) {
                     this.value = event.target.value;
                 };
                 AppComponent.prototype.setDate = function (date) {
                     this.selDate = date;
                 };
+                AppComponent.prototype.setTime = function (time) {
+                    this.selTime = time;
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n    \t<h3>Angular 2 Date and Time Picker</h3>\n    \t<input class=\"input-calendar\" input-text #dateText type='text' value={{selDate}} (change)=\"setInputDate($event)\"/>\n    \t<date-time-picker \n            [value]=\"value\"\n            [minDate]=\"minDate\" \n            [maxDate]=\"maxDate\"\n            [disableDays]=\"disableDays\"\n            [toContainPrevMonth]=\"toContainPrevMonth\"\n            [toContainNextMonth]=\"toContainNextMonth\"\n            (selectedDate)='setDate($event)'></date-time-picker>\n    ",
+                        template: "\n    \t<h3>Angular 2 Date and Time Picker</h3>\n    \t<input class=\"input-calendar\" input-text #dateText type='text' value={{selDate}}{{selTime}} (change)=\"setInput($event)\"/>\n        <date-time-picker \n            [value]=\"value\"\n            [minDate]=\"minDate\" \n            [maxDate]=\"maxDate\"\n            [disableDays]=\"disableDays\"\n            [toContainPrevMonth]=\"toContainPrevMonth\"\n            [toContainNextMonth]=\"toContainNextMonth\"\n            (selectedDate)='setDate($event)'></date-time-picker>\n    ",
                         directives: [datetimepicker_component_1.DateTimePickerComponent, datetimepicker_directive_1.DateTimePickerDirective, input_text_component_1.InputTextComponent, input_text_directive_1.InputTextDirective, timepicker_component_1.TimepickerComponent]
                     }), 
                     __metadata('design:paramtypes', [])
