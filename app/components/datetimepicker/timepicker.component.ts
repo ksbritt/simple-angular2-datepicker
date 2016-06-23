@@ -63,6 +63,7 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 	@Input() private max: Date;
 	@Input() private meridians: Array<string> = ['AM', 'PM'];
 	@Input() value: string = '';
+	private selTime: string = ' 00:00 AM/PM'
 
 	public selectedTime = new EventEmitter();
 
@@ -134,22 +135,12 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 	}
 
 	setTime() {
-		let hours = this.selected.getHours();
-		let minutes = this.selected.getMinutes();
-
-		if (this.showMeridian) {
-			// Convert 24 to 12 hour system
-			hours = (hours === 0 || hours === 12) ? 12 : hours % 12;
+		if (this.hours && this.minutes){
+			let time = " " + this.hours + ":" + this.minutes + " " + this.meridian
+			let selTime = time;
+			console.log(selTime)
+			this.selectedTime.next(selTime);
 		}
-
-		this.hours = this.pad(hours);
-		this.minutes = this.pad(minutes);
-		this.meridian = this.selected.getHours() < 12 ? this.meridians[0] : this.meridians[1];
-
-		let time = " " + this.hours + ":" + this.minutes + " " + this.meridian
-		let selTime = time;
-		console.log(selTime)
-		this.selectedTime.next(selTime);
 	}
 
 
@@ -174,6 +165,9 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 
 	private getHoursFromTemplate() {
 		let hours = parseInt(this.hours, 10);
+		let minutes = parseInt(this.minutes, 10);
+		minutes = (((minutes + 7.5) / 15 | 0) * 15) % 60;
+		hours = ((((minutes / 105) + .5) | 0) + hours) % 24;
 		let valid = this.showMeridian ? (hours > 0 && hours < 13) : (hours >= 0 && hours < 24);
 		if (!valid) {
 			return undefined;
@@ -192,6 +186,7 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 
 	private getMinutesFromTemplate() {
 		let minutes = parseInt(this.minutes, 10);
+		minutes = (((minutes + 7.5) / 15 | 0) * 15) % 60;
 		return (minutes >= 0 && minutes < 60) ? minutes : undefined;
 	}
 
@@ -199,7 +194,6 @@ export class TimepickerComponent implements ControlValueAccessor, OnInit {
 		return (isDefined(value) && value.toString().length < 2) ? '0' + value : value.toString();
 
 	}
-
 
 	private updateHours() {
 		if (this.readonlyInput) {

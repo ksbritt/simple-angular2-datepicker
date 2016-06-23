@@ -56,6 +56,7 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                     this.cd = cd;
                     this.meridians = ['AM', 'PM'];
                     this.value = '';
+                    this.selTime = ' 00:00 AM/PM';
                     this.selectedTime = new core_1.EventEmitter();
                     // result value
                     this._selected = new Date();
@@ -110,19 +111,12 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                     this.showSpinners = def(this.showSpinners, isDefined, timepickerConfig.showSpinners);
                 };
                 TimepickerComponent.prototype.setTime = function () {
-                    var hours = this.selected.getHours();
-                    var minutes = this.selected.getMinutes();
-                    if (this.showMeridian) {
-                        // Convert 24 to 12 hour system
-                        hours = (hours === 0 || hours === 12) ? 12 : hours % 12;
+                    if (this.hours && this.minutes) {
+                        var time = " " + this.hours + ":" + this.minutes + " " + this.meridian;
+                        var selTime = time;
+                        console.log(selTime);
+                        this.selectedTime.next(selTime);
                     }
-                    this.hours = this.pad(hours);
-                    this.minutes = this.pad(minutes);
-                    this.meridian = this.selected.getHours() < 12 ? this.meridians[0] : this.meridians[1];
-                    var time = " " + this.hours + ":" + this.minutes + " " + this.meridian;
-                    var selTime = time;
-                    console.log(selTime);
-                    this.selectedTime.next(selTime);
                 };
                 TimepickerComponent.prototype.refresh = function (type) {
                     this.updateTemplate();
@@ -141,6 +135,9 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                 };
                 TimepickerComponent.prototype.getHoursFromTemplate = function () {
                     var hours = parseInt(this.hours, 10);
+                    var minutes = parseInt(this.minutes, 10);
+                    minutes = (((minutes + 7.5) / 15 | 0) * 15) % 60;
+                    hours = ((((minutes / 105) + .5) | 0) + hours) % 24;
                     var valid = this.showMeridian ? (hours > 0 && hours < 13) : (hours >= 0 && hours < 24);
                     if (!valid) {
                         return undefined;
@@ -157,6 +154,7 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
                 };
                 TimepickerComponent.prototype.getMinutesFromTemplate = function () {
                     var minutes = parseInt(this.minutes, 10);
+                    minutes = (((minutes + 7.5) / 15 | 0) * 15) % 60;
                     return (minutes >= 0 && minutes < 60) ? minutes : undefined;
                 };
                 TimepickerComponent.prototype.pad = function (value) {
