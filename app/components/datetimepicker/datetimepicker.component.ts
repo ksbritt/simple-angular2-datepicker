@@ -30,7 +30,6 @@ export class DateTimePickerComponent implements OnChanges{
 	private nextMonth:string;
 	private prevYear:string;
 	private nextYear:string;
-	private showDp = 'none';
 	public selectedDate = new EventEmitter();
 	public selectedTime = new EventEmitter();
 

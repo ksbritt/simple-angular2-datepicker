@@ -43,6 +43,7 @@ System.register(['angular2/core', './components/datetimepicker/datetimepicker.co
                     this.toContainPrevMonth = false;
                     this.toContainNextMonth = false;
                     this.value = '';
+                    this.showDp = 'none';
                 }
                 AppComponent.prototype.openDatePicker = function () {
                     if (this.showDp == 'none')

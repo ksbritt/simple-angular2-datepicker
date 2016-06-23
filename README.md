@@ -13,3 +13,6 @@ Instal Node.js, npm and git
 1. Use "git clone" and clone the project in the desired folder.
 2. Run "npm install" which would install node_modules.
 3. Run "npm start"
+
+# Screenshot
+[Click here](https://github.com/ksbritt/simple-angular2-datepicker/blob/master/screenshot.png)

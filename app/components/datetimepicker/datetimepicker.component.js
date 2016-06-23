@@ -28,7 +28,6 @@ System.register(['angular2/core', '../datetimepicker/timepicker.component', '../
                 function DateTimePickerComponent() {
                     this.value = '';
                     this.dates = [];
-                    this.showDp = 'none';
                     this.selectedDate = new core_1.EventEmitter();
                     this.selectedTime = new core_1.EventEmitter();
                 }

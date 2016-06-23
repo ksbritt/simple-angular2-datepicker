@@ -37,6 +37,7 @@ export class AppComponent {
     private toContainPrevMonth: boolean = false;
     private toContainNextMonth: boolean = false;
     private value: string = '';
+    private showDp = 'none';
 	
 
     openDatePicker() {
