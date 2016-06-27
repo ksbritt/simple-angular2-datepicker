@@ -24,7 +24,7 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
     function addMinutes(date, minutes) {
         var dt = new Date(date.getTime() + minutes * 60000);
         var newDate = new Date(date);
-        newDate.setHours(dt.getHours(), dt.getMinutes());
+        newDate.setHours(dt.getHours(), dt.getMinutes() - (dt.getMinutes() % 15));
         return newDate;
     }
     return {
@@ -41,7 +41,7 @@ System.register(['angular2/core', 'angular2/common', '../../directives/input-tex
         execute: function() {
             exports_1("timepickerConfig", timepickerConfig = {
                 hourStep: 1,
-                minuteStep: 1,
+                minuteStep: 15,
                 showMeridian: true,
                 meridians: null,
                 readonlyInput: false,

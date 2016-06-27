@@ -18,7 +18,7 @@ export interface TimepickerConfig {
 
 export const timepickerConfig: TimepickerConfig = {
 	hourStep: 1,
-	minuteStep: 1,
+	minuteStep: 15,
 	showMeridian: true,
 	meridians: null,
 	readonlyInput: false,
@@ -40,7 +40,7 @@ function def(value: any, fn: Function, defaultValue: any) {
 function addMinutes(date: any, minutes: number) {
 	let dt = new Date(date.getTime() + minutes * 60000);
 	let newDate = new Date(date);
-	newDate.setHours(dt.getHours(), dt.getMinutes());
+	newDate.setHours(dt.getHours(), dt.getMinutes() - (dt.getMinutes()%15);
 	return newDate;
 }
 
